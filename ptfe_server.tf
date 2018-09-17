@@ -113,6 +113,22 @@ resource "aws_security_group" "allow_ptfe_access" {
   }
 }
 
+resource "aws_ebs_volume" "ptfe_data_ebs" {
+  availability_zone = "${aws_instance.ptfe_instance.availability_zone}"
+  size              = 88
+  type              = "gp2"
+
+  tags {
+    Name = "ptfe-psouter-ebs_volume"
+  }
+}
+
+resource "aws_volume_attachment" "pmd" {
+  device_name = "/dev/xvdb"
+  instance_id = "${aws_instance.ptfe_data_ebs.id}"
+  volume_id   = "${aws_ebs_volume.ptfe_data_ebs.id}"
+}
+
 resource "aws_instance" "ptfe_instance" {
   ami                    = "${data.aws_ami.xenial_ami.image_id}"
   instance_type          = "m5.xlarge"
