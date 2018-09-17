@@ -123,9 +123,9 @@ resource "aws_ebs_volume" "ptfe_data_ebs" {
   }
 }
 
-resource "aws_volume_attachment" "pmd" {
+resource "aws_volume_attachment" "ptfe_data_attachment" {
   device_name = "/dev/xvdb"
-  instance_id = "${aws_instance.ptfe_data_ebs.id}"
+  instance_id = "${aws_instance.ptfe_instance.id}"
   volume_id   = "${aws_ebs_volume.ptfe_data_ebs.id}"
 }
 
@@ -147,6 +147,22 @@ resource "aws_instance" "ptfe_instance" {
 
   tags {
     Name = "ptfe_instance"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo DEBIAN_FRONTEND=noninteractive apt-get update",
+      "sudo DEBIAN_FRONTEND=noninteractive apt-get install software-properties-common",
+      "sudo DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:certbot/certbot -y",
+      "sudo DEBIAN_FRONTEND=noninteractive apt-get update -y",
+      "sudo DEBIAN_FRONTEND=noninteractive apt-get install certbot -y",
+      "curl -o install.sh https://install.terraform.io/ptfe/stable",
+    ]
+
+    connection {
+      user        = "ubuntu"
+      private_key = "${tls_private_key.gen_ssh_key.private_key_pem}"
+    }
   }
 
 }
