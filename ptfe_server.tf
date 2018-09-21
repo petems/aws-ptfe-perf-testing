@@ -11,7 +11,7 @@ resource "tls_private_key" "gen_ssh_key" {
 }
 
 resource "aws_key_pair" "aws_ptfe_demo_keypair" {
-  key_name   = "aws-ptfe-demo"
+  key_name   = "aws-ptfe-demo-psouter"
   public_key = "${tls_private_key.gen_ssh_key.public_key_openssh}"
 }
 
