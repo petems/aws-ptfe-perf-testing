@@ -124,7 +124,7 @@ resource "aws_ebs_volume" "ptfe_data_ebs" {
 }
 
 resource "aws_volume_attachment" "ptfe_data_attachment" {
-  device_name = "/dev/xvdb"
+  device_name = "/dev/xvdb" # This is ignored by the instance, which mounts it as /dev/nvme1n1
   instance_id = "${aws_instance.ptfe_instance.id}"
   volume_id   = "${aws_ebs_volume.ptfe_data_ebs.id}"
 }
