@@ -157,6 +157,9 @@ resource "aws_instance" "ptfe_instance" {
       "sudo DEBIAN_FRONTEND=noninteractive apt-get update -y",
       "sudo DEBIAN_FRONTEND=noninteractive apt-get install certbot -y",
       "curl -o install.sh https://install.terraform.io/ptfe/stable",
+      # "sudo mkfs -t ext4 /dev/nvme1n1",
+      # "sudo mkdir /data",
+      # "sudo mount /dev/nvme1n1 /data",
     ]
 
     connection {
