@@ -34,7 +34,6 @@ resource "tfe_workspace" "5mb_workspace" {
   }
 }
 
-# Not possible to get workspace IDs yet: https://github.com/terraform-providers/terraform-provider-tfe/issues/19
-# output "ids_of_all_workspaces" {
-#   value = ["${tfe_workspace.5mb_workspace.*.id}"]
-# }
+output "ids_of_all_workspaces" {
+  value = ["${tfe_workspace.5mb_workspace.*.external_id}"]
+}
