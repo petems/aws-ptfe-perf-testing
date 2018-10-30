@@ -55,7 +55,7 @@ $ sudo certbot certonly
 
 * Add it to your Terraform configuration (https://www.terraform.io/docs/enterprise/registry/using.html#configuration)
 
-* cd into `tfe-terraform-setup/` and run Terraform plan (Note: Run with Parralelism set lower)
+* cd into `tfe-terraform-setup/` and run Terraform plan (Note: Run with Parralelism set lower if you experience 500 errors)
 
 * Get 500 workspaces tied to my petems/arbitary-terraform-code repo
 
