@@ -1,4 +1,5 @@
-provider "tfe" {
+provider "tfe" {}
+
 variable "oauth_token_id" {
   type = "string"
 }
